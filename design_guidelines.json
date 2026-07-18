@@ -1,0 +1,117 @@
+{
+  "project_name": "QuickFix - Local Service Booking Platform",
+  "theme_mode": "dark",
+  "core_philosophy": "Premium startup-quality SaaS UI blending Stripe/Linear's precision and dark mode glow with Airbnb's approachable human-centric layouts. High-trust, ultra-efficient, modern, slightly architectural.",
+  "typography": {
+    "headings": {
+      "font_family": "Outfit, sans-serif",
+      "weights": ["300", "500", "700"],
+      "styling": "tracking-tight, leading-none, never centered by default",
+      "sizes": {
+        "h1": "text-4xl sm:text-5xl lg:text-6xl",
+        "h2": "text-2xl sm:text-3xl lg:text-4xl",
+        "h3": "text-xl sm:text-2xl"
+      }
+    },
+    "body": {
+      "font_family": "Manrope, sans-serif",
+      "weights": ["400", "500"],
+      "styling": "tracking-normal, leading-relaxed",
+      "sizes": {
+        "default": "text-base",
+        "small": "text-sm",
+        "label": "text-xs uppercase tracking-[0.2em]"
+      }
+    },
+    "instructions": "Import Outfit and Manrope from Google Fonts via CSS. Do NOT use Inter, Roboto, or Lato for headings."
+  },
+  "colors": {
+    "background": {
+      "base": "#0A0A0A",
+      "surface": "#12121A",
+      "card": "#1C1C22"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "muted": "#71717A"
+    },
+    "accent": {
+      "primary": "#007AFF",
+      "primary_hover": "#3395FF",
+      "glow": "rgba(0, 122, 255, 0.15)",
+      "success": "#22C55E",
+      "warning": "#F59E0B"
+    },
+    "borders": {
+      "default": "#27272A",
+      "subtle": "rgba(255,255,255,0.05)"
+    },
+    "instructions": "Follow the 'Electric & Neon' meets 'Swiss & High-Contrast' archetype. Never use pure black (#000000). Use deep obsidian (#0A0A0A) tinted with blue. Highlight active states with the accent color. Always check APCA contrast guidelines."
+  },
+  "visual_enhancers": {
+    "glassmorphism": "Use backdrop-blur-xl with bg-black/60 and a 1px border-white/10 for sticky headers, responsive sidebars, and modals. NEVER use fully transparent backgrounds where content scrolls underneath.",
+    "gradients": "No generic full-screen gradients. Use subtle radial gradient orbs (blur-3xl, opacity-20) placed behind cards, sidebars, or hero sections to create 'ambient lighting'.",
+    "borders": "Expose the grid layout with 1px subtle borders (border-collapse look) in dashboards. Apply 'Tracing Beam' glow for high-conversion buttons/cards.",
+    "shadows": "Minimal shadows in dark mode; rely on 1px borders and inner glow (box-shadow: inset 0 1px 0 rgba(255,255,255,0.1)) to lift elements."
+  },
+  "grids_and_layouts": {
+    "marketing_landing_page": "Bento-style asymmetrical grids. Col-span variations (e.g., col-span-8 and col-span-4). Wide gaps (gap-8 to gap-12). Heavy use of negative space for the Premium Landing Page.",
+    "dashboards": "High-density functional grid for Provider, Admin, and Customer roles. Base: grid-cols-1 md:grid-cols-3 lg:grid-cols-4. Tight gaps (gap-4 or gap-6). Use flat rectangular statistics cards.",
+    "spacing": "Generous spacing. Use p-6, p-8, or p-12 inside cards. Mobile-first padding (px-4 md:px-8).",
+    "alignment": "Optical alignment over geometrical. Left-align text blocks by default, do not center-align everything."
+  },
+  "components": {
+    "buttons": "Pill-shaped or sharp rectangular with 1px border. Include micro-interaction on hover (-translate-y-0.5, brighter text/bg). Only use primary color for main CTAs (Booking System).",
+    "cards": "Modern Cards: Override default Shadcn with darker background, 1px subtle border, no drop shadow. Ensure inner padding is p-6+.",
+    "forms": "Beautiful Forms: Use Shadcn Form, Input, Select. Dark background inputs, border-white/10, focus:ring-2 focus:ring-blue-500/50. Ideal for Profile Management and Service Booking.",
+    "navigation": "Responsive Sidebar for dashboards, Sticky header for Landing Page. Use crystal glassmorphism effect.",
+    "toasts": "Use Sonner component for non-intrusive notifications (CRUD Operations, Status Tracking).",
+    "icons": "Use @phosphor-icons/react or lucide-react. Keep stroke width consistent."
+  },
+  "motion_and_interactions": {
+    "libraries": ["framer-motion", "lenis"],
+    "rules": [
+      "Staggered entrance animations for lists/grids, especially for Search & Filter Service results.",
+      "Interactive elements must have clear hover and focus states.",
+      "Do NOT use 'transition: all'. Explicitly define transitions (e.g., 'transition-colors', 'transition-transform')."
+    ]
+  },
+  "media_and_images": {
+    "hero_background": {
+      "url": "https://images.pexels.com/photos/18033166/pexels-photo-18033166.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Sleek modern kitchen design. Use with a heavy dark gradient overlay (bg-black/60) so text remains readable."
+    },
+    "service_electrician": {
+      "url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwxfHxlbGVjdHJpY2lhbiUyMHdvcmtpbmd8ZW58MHx8fHwxNzg0MzUzNzU2fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Electrician installing wiring. Perfect for service category cards."
+    },
+    "service_cleaning": {
+      "url": "https://images.pexels.com/photos/19836790/pexels-photo-19836790.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Elegant minimalist kitchen sink. Use for cleaning service details."
+    },
+    "provider_profile_1": {
+      "url": "https://images.pexels.com/photos/2505053/pexels-photo-2505053.jpeg",
+      "description": "Confident smiling professional. Use for provider dashboards, ratings & reviews avatars."
+    },
+    "provider_profile_2": {
+      "url": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "description": "Man wearing Henley top portrait. Use for customer profiles."
+    },
+    "instructions": "All images must have a maximum height of 80vh on mobile to prevent blocking. Use robust object-cover techniques for Image Upload placeholders."
+  },
+  "accessibility_and_testing": {
+    "contrast": "Ensure all text meets at least 4.5:1 against backgrounds.",
+    "testing": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case."
+  },
+  "universal_guidelines_for_main_agent": [
+    "CRITICAL: The codebase uses .js/.jsx files (not .tsx). Output all React components and Shadcn customizations in standard JavaScript, adhering strictly to React+JS patterns.",
+    "NEVER use generic centered layouts or simplistic gradients.",
+    "NEVER use AI assistant emoji characters like 🤖🧠💭💡.",
+    "Create depth through layered design elements (z-index hierarchy).",
+    "Use 2-3x more spacing than feels comfortable.",
+    "DO NOT add '.App { text-align: center; }' in CSS.",
+    "Customize Shadcn components heavily to match the premium Linear-style dark theme. Ensure they don't look like default Vercel templates.",
+    "For complex interactions (dropdowns, date pickers for Booking System), ALWAYS use Shadcn, never raw HTML tags."
+  ]
+}
