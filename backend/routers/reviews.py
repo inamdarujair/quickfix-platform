@@ -1,12 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from bson import ObjectId
 from datetime import datetime, timezone
 
 from database import db
 from models import ReviewCreateRequest
 from auth_utils import require_roles
+from storage_utils import save_upload
 
 router = APIRouter(prefix="/reviews", tags=["reviews"])
+
+MAX_PHOTOS = 3
+MAX_PHOTO_SIZE = 5 * 1024 * 1024
 
 
 def review_to_public(r: dict) -> dict:
@@ -51,6 +55,7 @@ async def create_review(payload: ReviewCreateRequest, user: dict = Depends(requi
         "service_id": booking["service_id"],
         "rating": payload.rating,
         "comment": payload.comment,
+        "photos": [],
         "created_at": datetime.now(timezone.utc),
     }
     result = await db.reviews.insert_one(doc)
@@ -59,6 +64,35 @@ async def create_review(payload: ReviewCreateRequest, user: dict = Depends(requi
     await recalculate_rating("services", "service_id", booking["service_id"])
     await recalculate_rating("users", "provider_id", booking["provider_id"])
     return review_to_public(doc)
+
+
+@router.post("/{review_id}/photos")
+async def upload_review_photos(review_id: str, files: list[UploadFile] = File(...), user: dict = Depends(require_roles("customer"))):
+    try:
+        review = await db.reviews.find_one({"_id": ObjectId(review_id)})
+    except Exception:
+        raise HTTPException(status_code=404, detail="Review not found")
+    if not review or review["customer_id"] != user["id"]:
+        raise HTTPException(status_code=404, detail="Review not found")
+
+    existing_photos = review.get("photos", [])
+    if len(existing_photos) + len(files) > MAX_PHOTOS:
+        raise HTTPException(status_code=400, detail=f"Maximum {MAX_PHOTOS} photos allowed per review")
+
+    new_paths = []
+    for file in files:
+        if file.content_type not in ("image/jpeg", "image/png", "image/webp"):
+            raise HTTPException(status_code=400, detail="Only JPEG, PNG or WEBP images are allowed")
+        data = await file.read()
+        if len(data) > MAX_PHOTO_SIZE:
+            raise HTTPException(status_code=400, detail="Each photo must be smaller than 5MB")
+        path = await save_upload(data, file.filename, file.content_type, f"reviews/{review_id}")
+        new_paths.append(path)
+
+    all_photos = existing_photos + new_paths
+    await db.reviews.update_one({"_id": ObjectId(review_id)}, {"$set": {"photos": all_photos}})
+    updated = await db.reviews.find_one({"_id": ObjectId(review_id)})
+    return review_to_public(updated)
 
 
 @router.get("/service/{service_id}")

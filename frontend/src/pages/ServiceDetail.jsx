@@ -110,6 +110,19 @@ export default function ServiceDetail() {
                       <StarRating rating={r.rating} showValue={false} />
                     </div>
                     {r.comment && <p className="mt-2 text-sm text-zinc-500">{r.comment}</p>}
+                    {r.photos?.length > 0 && (
+                      <div className="mt-3 flex gap-2">
+                        {r.photos.map((path, i) => (
+                          <img
+                            key={i}
+                            src={resolveImage({ images: [path] })}
+                            alt="Review attachment"
+                            data-testid={`review-photo-${r.id}-${i}`}
+                            className="h-16 w-16 rounded-lg border border-white/10 object-cover"
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

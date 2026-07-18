@@ -11,6 +11,8 @@ export const BOOKING_MODAL = {
 export const REVIEW_MODAL = {
         star: (n) => `review-modal-star-${n}`,
         commentInput: 'review-modal-comment-input',
+        photosInput: 'review-modal-photos-input',
+        removePhotoButton: (n) => `review-modal-remove-photo-button-${n}`,
         submitButton: 'review-modal-submit-button',
 };
 

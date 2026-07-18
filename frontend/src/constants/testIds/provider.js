@@ -3,6 +3,7 @@ export const PROVIDER_DASHBOARD = {
         overviewTab: 'provider-dashboard-overview-tab',
         servicesTab: 'provider-dashboard-services-tab',
         bookingsTab: 'provider-dashboard-bookings-tab',
+        profileTab: 'provider-dashboard-profile-tab',
         addServiceButton: 'provider-add-service-button',
 };
 

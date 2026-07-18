@@ -2,17 +2,33 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Star, Loader2 } from "lucide-react";
+import { Star, Loader2, ImagePlus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/ui/sonner";
 import { api, formatApiError } from "@/lib/api";
 import { REVIEW_MODAL } from "@/constants/testIds";
 
+const MAX_PHOTOS = 3;
+
 export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
   const [rating, setRating] = useState(0);
   const [hovered, setHovered] = useState(0);
   const [comment, setComment] = useState("");
+  const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const handlePhotoChange = (e) => {
+    const files = Array.from(e.target.files || []);
+    setPhotos((prev) => [...prev, ...files].slice(0, MAX_PHOTOS));
+  };
+
+  const removePhoto = (idx) => setPhotos((prev) => prev.filter((_, i) => i !== idx));
+
+  const reset = () => {
+    setRating(0);
+    setComment("");
+    setPhotos([]);
+  };
 
   const handleSubmit = async () => {
     if (rating < 1) {
@@ -21,10 +37,16 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
     }
     setLoading(true);
     try {
-      await api.post("/reviews", { booking_id: booking.id, rating, comment });
+      const { data: review } = await api.post("/reviews", { booking_id: booking.id, rating, comment });
+      if (photos.length) {
+        const formData = new FormData();
+        photos.forEach((f) => formData.append("files", f));
+        await api.post(`/reviews/${review.id}/photos`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      }
       toast.success("Thanks for your review!");
-      setRating(0);
-      setComment("");
+      reset();
       onOpenChange(false);
       onReviewed?.();
     } catch (err) {
@@ -70,6 +92,38 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
           className="min-h-[90px] border-white/10 bg-transparent text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50"
         />
 
+        <div>
+          <div className="flex flex-wrap gap-2">
+            {photos.map((file, i) => (
+              <div key={i} className="relative h-14 w-14 overflow-hidden rounded-lg border border-white/10">
+                <img src={URL.createObjectURL(file)} alt="" className="h-full w-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removePhoto(i)}
+                  data-testid={REVIEW_MODAL.removePhotoButton(i)}
+                  className="absolute right-0.5 top-0.5 rounded-full bg-black/70 p-0.5 text-zinc-200"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+            ))}
+            {photos.length < MAX_PHOTOS && (
+              <label className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-lg border border-dashed border-white/15 text-zinc-500 hover:bg-white/5">
+                <ImagePlus className="h-4 w-4" />
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  multiple
+                  data-testid={REVIEW_MODAL.photosInput}
+                  className="hidden"
+                  onChange={handlePhotoChange}
+                />
+              </label>
+            )}
+          </div>
+          <p className="mt-1.5 text-xs text-zinc-600">Add up to {MAX_PHOTOS} photos (optional)</p>
+        </div>
+
         <DialogFooter>
           <Button
             onClick={handleSubmit}
@@ -85,3 +139,4 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
     </Dialog>
   );
 };
+
