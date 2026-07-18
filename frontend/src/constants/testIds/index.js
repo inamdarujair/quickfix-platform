@@ -19,3 +19,4 @@ export * from './dashboard';
 export * from './provider';
 export * from './admin';
 export * from './navbar';
+export * from './chat';

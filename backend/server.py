@@ -11,7 +11,7 @@ load_dotenv(ROOT_DIR / ".env")
 from database import db, mongo_client
 from seed_data import seed_admin, seed_sample_data
 from storage_utils import init_storage
-from routers import auth, users, services, bookings, reviews, provider, admin, files
+from routers import auth, users, services, bookings, reviews, provider, admin, files, chat
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -33,6 +33,7 @@ api_router.include_router(reviews.router)
 api_router.include_router(provider.router)
 api_router.include_router(admin.router)
 api_router.include_router(files.router)
+api_router.include_router(chat.router)
 
 app.include_router(api_router)
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "next-themes";
-import { Wrench, Sun, Moon, Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { Wrench, Sun, Moon, Menu, X, LayoutDashboard, LogOut, Sparkles } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { NAVBAR } from "@/constants/testIds";
 
@@ -36,6 +36,12 @@ export const Navbar = () => {
             <Link to={dashboardPath(user.role)} data-testid={NAVBAR.dashboardLink} className="flex items-center gap-1.5 text-sm text-zinc-300 transition-colors hover:text-white">
               <LayoutDashboard className="h-3.5 w-3.5" />
               Dashboard
+            </Link>
+          )}
+          {user?.role === "customer" && (
+            <Link to="/chat" data-testid="navbar-chat-link" className="flex items-center gap-1.5 text-sm text-zinc-300 transition-colors hover:text-white">
+              <Sparkles className="h-3.5 w-3.5" />
+              Ask AI
             </Link>
           )}
         </nav>
@@ -89,6 +95,11 @@ export const Navbar = () => {
                 <Link to={dashboardPath(user.role)} onClick={() => setOpen(false)} className="text-sm text-zinc-300">
                   Dashboard
                 </Link>
+                {user.role === "customer" && (
+                  <Link to="/chat" onClick={() => setOpen(false)} className="text-sm text-zinc-300">
+                    Ask AI
+                  </Link>
+                )}
                 <button onClick={handleLogout} className="text-left text-sm text-zinc-300">
                   Logout
                 </button>

@@ -15,6 +15,7 @@ import NotFound from "@/pages/NotFound";
 import CustomerDashboard from "@/pages/customer/CustomerDashboard";
 import ProviderDashboard from "@/pages/provider/ProviderDashboard";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
+import ChatAssistant from "@/pages/ChatAssistant";
 
 function Layout({ children }) {
   return (
@@ -38,6 +39,14 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/:id" element={<ServiceDetail />} />
+              <Route
+                path="/chat"
+                element={
+                  <ProtectedRoute roles={["customer"]}>
+                    <ChatAssistant />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/dashboard"
                 element={
