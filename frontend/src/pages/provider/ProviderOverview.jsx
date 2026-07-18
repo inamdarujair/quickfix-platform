@@ -24,7 +24,7 @@ export const ProviderOverview = () => {
       <StatCard testId="provider-stat-services" icon={Briefcase} label="Active Services" value={stats.total_services} delay={0} />
       <StatCard testId="provider-stat-pending" icon={Clock} label="Pending Bookings" value={stats.pending_bookings} accent="text-amber-400" delay={0.05} />
       <StatCard testId="provider-stat-completed" icon={CalendarCheck} label="Completed Jobs" value={stats.completed_bookings} accent="text-emerald-400" delay={0.1} />
-      <StatCard testId="provider-stat-earnings" icon={DollarSign} label="Total Earnings" value={`$${stats.earnings}`} accent="text-blue-400" delay={0.15} />
+      <StatCard testId="provider-stat-earnings" icon={DollarSign} label="Total Earnings" value={`$${Number(stats.earnings).toFixed(2)}`} accent="text-blue-400" delay={0.15} />
     </div>
   );
 };

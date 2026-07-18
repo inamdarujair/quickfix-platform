@@ -114,6 +114,14 @@ export const Navbar = () => {
                 </Link>
               </>
             )}
+            <button
+              data-testid={`${NAVBAR.themeToggle}-mobile`}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="flex items-center gap-1.5 text-left text-sm text-muted-foreground"
+            >
+              {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </button>
           </div>
         </div>
       )}

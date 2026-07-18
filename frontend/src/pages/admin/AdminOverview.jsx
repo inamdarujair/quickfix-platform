@@ -24,7 +24,7 @@ export const AdminOverview = () => {
         <StatCard testId="admin-stat-customers" icon={Users} label="Customers" value={stats.total_customers} delay={0} />
         <StatCard testId="admin-stat-providers" icon={Users} label="Providers" value={stats.total_providers} accent="text-emerald-400" delay={0.05} />
         <StatCard testId="admin-stat-services" icon={Briefcase} label="Active Services" value={`${stats.active_services}/${stats.total_services}`} accent="text-amber-400" delay={0.1} />
-        <StatCard testId="admin-stat-revenue" icon={DollarSign} label="Total Revenue" value={`$${stats.revenue}`} accent="text-blue-400" delay={0.15} />
+        <StatCard testId="admin-stat-revenue" icon={DollarSign} label="Total Revenue" value={`$${Number(stats.revenue).toFixed(2)}`} accent="text-blue-400" delay={0.15} />
       </div>
 
       <div className="mt-6 rounded-2xl border border-border bg-card p-6">
