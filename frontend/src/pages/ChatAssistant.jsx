@@ -87,12 +87,12 @@ export default function ChatAssistant() {
           <Sparkles className="h-5 w-5" />
         </span>
         <div>
-          <h1 className="font-heading text-xl font-semibold text-white">QuickFix Assistant</h1>
-          <p className="text-xs text-zinc-500">Tell me what's going on and I'll point you to the right service.</p>
+          <h1 className="font-heading text-xl font-semibold text-foreground">QuickFix Assistant</h1>
+          <p className="text-xs text-muted-foreground">Tell me what's going on and I'll point you to the right service.</p>
         </div>
       </div>
 
-      <div ref={scrollRef} data-testid={CHAT_PAGE.messageList} className="flex-1 space-y-4 overflow-y-auto rounded-2xl border border-white/10 bg-[#12121A] p-5">
+      <div ref={scrollRef} data-testid={CHAT_PAGE.messageList} className="flex-1 space-y-4 overflow-y-auto rounded-2xl border border-border bg-card p-5">
         {messages.map((m, i) => (
           <div key={i} className={`flex items-start gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
             {m.role === "assistant" && (
@@ -103,19 +103,19 @@ export default function ChatAssistant() {
             <div
               data-testid={m.role === "user" ? CHAT_PAGE.userBubble(i) : CHAT_PAGE.assistantBubble(i)}
               className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                m.role === "user" ? "bg-blue-500 text-white" : "bg-white/5 text-zinc-200"
+                m.role === "user" ? "bg-blue-500 text-white" : "bg-accent text-foreground"
               }`}
             >
               {m.content || (streaming && i === messages.length - 1 ? (
                 <span data-testid={CHAT_PAGE.typingIndicator} className="flex gap-1">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-500" />
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-500 [animation-delay:0.15s]" />
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-500 [animation-delay:0.3s]" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-muted-foreground" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-muted-foreground [animation-delay:0.15s]" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-muted-foreground [animation-delay:0.3s]" />
                 </span>
               ) : null)}
             </div>
             {m.role === "user" && (
-              <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/10 text-zinc-300">
+              <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-muted-foreground">
                 <UserIcon className="h-3.5 w-3.5" />
               </span>
             )}
@@ -123,14 +123,14 @@ export default function ChatAssistant() {
         ))}
       </div>
 
-      <div className="mt-4 flex items-end gap-2 rounded-2xl border border-white/10 bg-[#12121A] p-3">
+      <div className="mt-4 flex items-end gap-2 rounded-2xl border border-border bg-card p-3">
         <Textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           data-testid={CHAT_PAGE.messageInput}
           placeholder="e.g. My kitchen sink is leaking..."
-          className="min-h-[44px] resize-none border-none bg-transparent text-white placeholder:text-zinc-600 focus-visible:ring-0"
+          className="min-h-[44px] resize-none border-none bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-0"
         />
         <Button
           onClick={handleSend}

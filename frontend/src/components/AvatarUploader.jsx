@@ -30,11 +30,11 @@ export const AvatarUploader = ({ user, onUpdated }) => {
 
   return (
     <div className="flex items-center gap-4">
-      <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/10 bg-[#1C1C22]">
+      <div className="relative h-20 w-20 overflow-hidden rounded-full border border-border bg-muted">
         {src ? (
           <img src={src} alt={user?.name} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center font-heading text-xl text-zinc-500">
+          <div className="flex h-full w-full items-center justify-center font-heading text-xl text-muted-foreground">
             {user?.name?.charAt(0)?.toUpperCase()}
           </div>
         )}
@@ -45,7 +45,7 @@ export const AvatarUploader = ({ user, onUpdated }) => {
           data-testid={PROFILE_FORM.avatarInput}
           onClick={() => inputRef.current?.click()}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-200 transition-colors hover:bg-white/10 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-4 py-2 text-sm text-secondary-foreground transition-colors hover:bg-accent disabled:opacity-50"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
           Change photo

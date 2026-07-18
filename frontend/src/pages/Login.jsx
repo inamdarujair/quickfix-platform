@@ -33,28 +33,28 @@ export default function Login() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0A0A0A] px-4">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4">
       <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#12121A] p-8"
+        className="relative w-full max-w-md rounded-2xl border border-border bg-card p-8"
       >
         <Link to="/" className="mb-6 flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 text-white">
             <Wrench className="h-4 w-4" />
           </span>
-          <span className="font-heading text-lg font-semibold text-white">QuickFix</span>
+          <span className="font-heading text-lg font-semibold text-foreground">QuickFix</span>
         </Link>
-        <h1 className="font-heading text-2xl font-semibold text-white">Welcome back</h1>
-        <p className="mt-1 text-sm text-zinc-500">Log in to manage your bookings and services.</p>
+        <h1 className="font-heading text-2xl font-semibold text-foreground">Welcome back</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Log in to manage your bookings and services.</p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <Label className="text-xs text-zinc-400">Email</Label>
+            <Label className="text-xs text-muted-foreground">Email</Label>
             <div className="relative mt-1.5">
-              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 type="email"
                 required
@@ -62,14 +62,14 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 data-testid={LOGIN.emailInput}
                 placeholder="you@example.com"
-                className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50"
+                className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50"
               />
             </div>
           </div>
           <div>
-            <Label className="text-xs text-zinc-400">Password</Label>
+            <Label className="text-xs text-muted-foreground">Password</Label>
             <div className="relative mt-1.5">
-              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 type="password"
                 required
@@ -77,7 +77,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 data-testid={LOGIN.passwordInput}
                 placeholder="••••••••"
-                className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50"
+                className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50"
               />
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function Login() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
+        <p className="mt-6 text-center text-sm text-muted-foreground">
           Don't have an account?{" "}
           <Link data-testid={LOGIN.registerLink} to="/register" className="font-medium text-blue-400 hover:text-blue-300">
             Sign up

@@ -12,13 +12,13 @@ export const StarRating = ({ rating = 0, size = 14, showValue = true, count }) =
             size={size}
             className={cn(
               "transition-colors",
-              n <= rounded ? "fill-amber-400 text-amber-400" : "fill-transparent text-zinc-600"
+              n <= rounded ? "fill-amber-400 text-amber-400" : "fill-transparent text-muted-foreground/40"
             )}
           />
         ))}
       </div>
       {showValue && (
-        <span className="text-xs text-zinc-400">
+        <span className="text-xs text-muted-foreground">
           {rating > 0 ? rating.toFixed(1) : "New"}
           {typeof count === "number" && count > 0 ? ` (${count})` : ""}
         </span>

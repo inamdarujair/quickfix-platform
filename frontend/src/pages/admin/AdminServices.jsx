@@ -48,9 +48,9 @@ export const AdminServices = () => {
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-white/10">
+    <div className="overflow-x-auto rounded-2xl border border-border">
       <table className="w-full text-sm">
-        <thead className="bg-[#12121A] text-left text-xs uppercase tracking-wide text-zinc-500">
+        <thead className="bg-muted text-left text-xs uppercase tracking-wide text-muted-foreground">
           <tr>
             <th className="px-4 py-3">Service</th>
             <th className="px-4 py-3">Provider</th>
@@ -59,7 +59,7 @@ export const AdminServices = () => {
             <th className="px-4 py-3 text-right">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/5 bg-[#1C1C22]">
+        <tbody className="divide-y divide-border bg-card">
           {services.map((s) => {
             const image = resolveImage(s);
             const category = getCategory(s.category);
@@ -67,26 +67,26 @@ export const AdminServices = () => {
               <tr key={s.id}>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 overflow-hidden rounded-lg border border-white/10 bg-black/30">
+                    <div className="h-9 w-9 overflow-hidden rounded-lg border border-border bg-muted">
                       {image && <img src={image} alt="" className="h-full w-full object-cover" />}
                     </div>
                     <div>
-                      <p className="text-zinc-200">{s.title}</p>
-                      <p className="text-xs text-zinc-500">{category?.label}</p>
+                      <p className="text-foreground">{s.title}</p>
+                      <p className="text-xs text-muted-foreground">{category?.label}</p>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-zinc-400">{s.provider_name}</td>
-                <td className="px-4 py-3 text-zinc-300">${s.price}</td>
+                <td className="px-4 py-3 text-muted-foreground">{s.provider_name}</td>
+                <td className="px-4 py-3 text-foreground/80">${s.price}</td>
                 <td className="px-4 py-3">
-                  <span className={s.is_active ? "text-emerald-400" : "text-zinc-500"}>{s.is_active ? "Active" : "Inactive"}</span>
+                  <span className={s.is_active ? "text-emerald-400" : "text-muted-foreground"}>{s.is_active ? "Active" : "Inactive"}</span>
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleToggle(s.id)} data-testid={ADMIN_SERVICE_ROW.toggleButton(s.id)} className="border-white/10 bg-transparent text-amber-400 hover:bg-amber-500/10">
+                    <Button size="sm" variant="outline" onClick={() => handleToggle(s.id)} data-testid={ADMIN_SERVICE_ROW.toggleButton(s.id)} className="border-border bg-transparent text-amber-400 hover:bg-amber-500/10">
                       <Power className="h-3.5 w-3.5" />
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => handleDelete(s.id)} data-testid={ADMIN_SERVICE_ROW.deleteButton(s.id)} className="border-white/10 bg-transparent text-red-400 hover:bg-red-500/10">
+                    <Button size="sm" variant="outline" onClick={() => handleDelete(s.id)} data-testid={ADMIN_SERVICE_ROW.deleteButton(s.id)} className="border-border bg-transparent text-red-400 hover:bg-red-500/10">
                       <Trash2 className="h-3.5 w-3.5" />
                     </Button>
                   </div>

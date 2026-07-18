@@ -42,70 +42,70 @@ export default function Register() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0A0A0A] px-4 py-12">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-12">
       <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#12121A] p-8"
+        className="relative w-full max-w-md rounded-2xl border border-border bg-card p-8"
       >
         <Link to="/" className="mb-6 flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 text-white">
             <Wrench className="h-4 w-4" />
           </span>
-          <span className="font-heading text-lg font-semibold text-white">QuickFix</span>
+          <span className="font-heading text-lg font-semibold text-foreground">QuickFix</span>
         </Link>
-        <h1 className="font-heading text-2xl font-semibold text-white">Create your account</h1>
-        <p className="mt-1 text-sm text-zinc-500">Join as a customer to book services, or a provider to offer them.</p>
+        <h1 className="font-heading text-2xl font-semibold text-foreground">Create your account</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Join as a customer to book services, or a provider to offer them.</p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <Label className="text-xs text-zinc-400">I want to join as</Label>
+            <Label className="text-xs text-muted-foreground">I want to join as</Label>
             <Select value={form.role} onValueChange={(v) => setForm((f) => ({ ...f, role: v }))}>
-              <SelectTrigger data-testid={REGISTER.roleSelect} className="mt-1.5 border-white/10 bg-transparent text-white">
+              <SelectTrigger data-testid={REGISTER.roleSelect} className="mt-1.5 border-input bg-transparent text-foreground">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="border-white/10 bg-[#1C1C22] text-white">
+              <SelectContent className="border-border bg-popover text-popover-foreground">
                 <SelectItem value="customer">Customer — book services</SelectItem>
                 <SelectItem value="provider">Provider — offer services</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label className="text-xs text-zinc-400">Full Name</Label>
+            <Label className="text-xs text-muted-foreground">Full Name</Label>
             <div className="relative mt-1.5">
-              <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-              <Input required value={form.name} onChange={update("name")} data-testid={REGISTER.nameInput} placeholder="Jane Doe" className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50" />
+              <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input required value={form.name} onChange={update("name")} data-testid={REGISTER.nameInput} placeholder="Jane Doe" className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50" />
             </div>
           </div>
           <div>
-            <Label className="text-xs text-zinc-400">Email</Label>
+            <Label className="text-xs text-muted-foreground">Email</Label>
             <div className="relative mt-1.5">
-              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-              <Input type="email" required value={form.email} onChange={update("email")} data-testid={REGISTER.emailInput} placeholder="you@example.com" className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50" />
+              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input type="email" required value={form.email} onChange={update("email")} data-testid={REGISTER.emailInput} placeholder="you@example.com" className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50" />
             </div>
           </div>
           <div>
-            <Label className="text-xs text-zinc-400">Phone (optional)</Label>
+            <Label className="text-xs text-muted-foreground">Phone (optional)</Label>
             <div className="relative mt-1.5">
-              <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-              <Input value={form.phone} onChange={update("phone")} data-testid={REGISTER.phoneInput} placeholder="+1 555 000 0000" className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50" />
+              <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input value={form.phone} onChange={update("phone")} data-testid={REGISTER.phoneInput} placeholder="+1 555 000 0000" className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="text-xs text-zinc-400">Password</Label>
+              <Label className="text-xs text-muted-foreground">Password</Label>
               <div className="relative mt-1.5">
-                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-                <Input type="password" required value={form.password} onChange={update("password")} data-testid={REGISTER.passwordInput} placeholder="••••••••" className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50" />
+                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input type="password" required value={form.password} onChange={update("password")} data-testid={REGISTER.passwordInput} placeholder="••••••••" className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50" />
               </div>
             </div>
             <div>
-              <Label className="text-xs text-zinc-400">Confirm</Label>
+              <Label className="text-xs text-muted-foreground">Confirm</Label>
               <div className="relative mt-1.5">
-                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-                <Input type="password" required value={form.confirm} onChange={update("confirm")} data-testid={REGISTER.passwordConfirmInput} placeholder="••••••••" className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50" />
+                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input type="password" required value={form.confirm} onChange={update("confirm")} data-testid={REGISTER.passwordConfirmInput} placeholder="••••••••" className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50" />
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function Register() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
+        <p className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link data-testid={REGISTER.loginLink} to="/login" className="font-medium text-blue-400 hover:text-blue-300">
             Log in

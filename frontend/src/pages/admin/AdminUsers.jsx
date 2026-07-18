@@ -55,14 +55,14 @@ export const AdminUsers = () => {
     <div>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-          <Input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && load()} data-testid={ADMIN_DASHBOARD.userSearchInput} placeholder="Search by name or email" className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && load()} data-testid={ADMIN_DASHBOARD.userSearchInput} placeholder="Search by name or email" className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50" />
         </div>
         <Select value={role} onValueChange={setRole}>
-          <SelectTrigger data-testid={ADMIN_DASHBOARD.roleFilter} className="border-white/10 bg-transparent text-white sm:w-40">
+          <SelectTrigger data-testid={ADMIN_DASHBOARD.roleFilter} className="border-input bg-transparent text-foreground sm:w-40">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="border-white/10 bg-[#1C1C22] text-white">
+          <SelectContent className="border-border bg-popover text-popover-foreground">
             <SelectItem value="all">All roles</SelectItem>
             <SelectItem value="customer">Customers</SelectItem>
             <SelectItem value="provider">Providers</SelectItem>
@@ -75,9 +75,9 @@ export const AdminUsers = () => {
           <Loader2 className="h-6 w-6 animate-spin text-blue-400" />
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-white/10">
+        <div className="overflow-x-auto rounded-2xl border border-border">
           <table className="w-full text-sm">
-            <thead className="bg-[#12121A] text-left text-xs uppercase tracking-wide text-zinc-500">
+            <thead className="bg-muted text-left text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="px-4 py-3">User</th>
                 <th className="px-4 py-3">Role</th>
@@ -85,23 +85,23 @@ export const AdminUsers = () => {
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 bg-[#1C1C22]">
+            <tbody className="divide-y divide-border bg-card">
               {users.map((u) => {
                 const avatar = resolveAvatar(u);
                 return (
                   <tr key={u.id}>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 overflow-hidden rounded-full border border-white/10 bg-black/30">
+                        <div className="h-8 w-8 overflow-hidden rounded-full border border-border bg-muted">
                           {avatar ? <img src={avatar} alt="" className="h-full w-full object-cover" /> : null}
                         </div>
                         <div>
-                          <p className="text-zinc-200">{u.name}</p>
-                          <p className="text-xs text-zinc-500">{u.email}</p>
+                          <p className="text-foreground">{u.name}</p>
+                          <p className="text-xs text-muted-foreground">{u.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 capitalize text-zinc-400">
+                    <td className="px-4 py-3 capitalize text-muted-foreground">
                       {u.role}
                       {u.role === "provider" && u.is_verified && <ShieldCheck className="ml-1.5 inline h-3.5 w-3.5 text-blue-400" />}
                     </td>
@@ -111,14 +111,14 @@ export const AdminUsers = () => {
                     <td className="px-4 py-3 text-right">
                       <div className="flex justify-end gap-2">
                         {u.role === "provider" && (
-                          <Button size="sm" variant="outline" onClick={() => handleVerify(u.id)} data-testid={ADMIN_USER_ROW.verifyButton(u.id)} className="border-white/10 bg-transparent text-zinc-300 hover:bg-white/5">
+                          <Button size="sm" variant="outline" onClick={() => handleVerify(u.id)} data-testid={ADMIN_USER_ROW.verifyButton(u.id)} className="border-border bg-transparent text-muted-foreground hover:bg-accent">
                             <ShieldCheck className="h-3.5 w-3.5" />
                           </Button>
                         )}
-                        <Button size="sm" variant="outline" onClick={() => handleBlock(u.id)} data-testid={ADMIN_USER_ROW.blockButton(u.id)} className="border-white/10 bg-transparent text-amber-400 hover:bg-amber-500/10">
+                        <Button size="sm" variant="outline" onClick={() => handleBlock(u.id)} data-testid={ADMIN_USER_ROW.blockButton(u.id)} className="border-border bg-transparent text-amber-400 hover:bg-amber-500/10">
                           <ShieldBan className="h-3.5 w-3.5" />
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => handleDelete(u.id)} data-testid={ADMIN_USER_ROW.deleteButton(u.id)} className="border-white/10 bg-transparent text-red-400 hover:bg-red-500/10">
+                        <Button size="sm" variant="outline" onClick={() => handleDelete(u.id)} data-testid={ADMIN_USER_ROW.deleteButton(u.id)} className="border-border bg-transparent text-red-400 hover:bg-red-500/10">
                           <Trash2 className="h-3.5 w-3.5" />
                         </Button>
                       </div>

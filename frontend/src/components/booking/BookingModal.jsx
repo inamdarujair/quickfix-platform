@@ -53,33 +53,33 @@ export const BookingModal = ({ service, open, onOpenChange, onBooked }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-white/10 bg-[#12121A] text-white sm:max-w-md">
+      <DialogContent className="border-border bg-card text-foreground sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="font-heading">Book {service?.title}</DialogTitle>
-          <DialogDescription className="text-zinc-500">
+          <DialogDescription className="text-muted-foreground">
             Choose a preferred date and time. The provider will confirm your booking shortly.
           </DialogDescription>
         </DialogHeader>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="text-xs text-zinc-400">Date</Label>
+            <Label className="text-xs text-muted-foreground">Date</Label>
             <input
               type="date"
               min={today}
               value={date}
               onChange={(e) => setDate(e.target.value)}
               data-testid={BOOKING_MODAL.dateInput}
-              className="mt-1.5 h-9 w-full rounded-md border border-white/10 bg-transparent px-3 text-sm text-white [color-scheme:dark] focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="mt-1.5 h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm text-foreground [color-scheme:light] dark:[color-scheme:dark] focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
             />
           </div>
           <div>
-            <Label className="text-xs text-zinc-400">Time Slot</Label>
+            <Label className="text-xs text-muted-foreground">Time Slot</Label>
             <Select value={time} onValueChange={setTime}>
-              <SelectTrigger data-testid={BOOKING_MODAL.timeInput} className="mt-1.5 border-white/10 bg-transparent text-white">
+              <SelectTrigger data-testid={BOOKING_MODAL.timeInput} className="mt-1.5 border-input bg-transparent text-foreground">
                 <SelectValue placeholder="Select time" />
               </SelectTrigger>
-              <SelectContent className="border-white/10 bg-[#1C1C22] text-white">
+              <SelectContent className="border-border bg-popover text-popover-foreground">
                 {TIME_SLOTS.map((slot) => (
                   <SelectItem key={slot} value={slot}>
                     {slot}
@@ -91,24 +91,24 @@ export const BookingModal = ({ service, open, onOpenChange, onBooked }) => {
         </div>
 
         <div>
-          <Label className="text-xs text-zinc-400">Service Address</Label>
+          <Label className="text-xs text-muted-foreground">Service Address</Label>
           <Textarea
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             data-testid={BOOKING_MODAL.addressInput}
             placeholder="Enter full address where the service is needed"
-            className="mt-1.5 min-h-[70px] border-white/10 bg-transparent text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50"
+            className="mt-1.5 min-h-[70px] border-input bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50"
           />
         </div>
 
         <div>
-          <Label className="text-xs text-zinc-400">Notes (optional)</Label>
+          <Label className="text-xs text-muted-foreground">Notes (optional)</Label>
           <Textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             data-testid={BOOKING_MODAL.notesInput}
             placeholder="Anything the provider should know?"
-            className="mt-1.5 min-h-[60px] border-white/10 bg-transparent text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50"
+            className="mt-1.5 min-h-[60px] border-input bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50"
           />
         </div>
 
@@ -117,7 +117,7 @@ export const BookingModal = ({ service, open, onOpenChange, onBooked }) => {
             variant="ghost"
             data-testid={BOOKING_MODAL.cancelButton}
             onClick={() => onOpenChange(false)}
-            className="text-zinc-400 hover:text-white"
+            className="text-muted-foreground hover:text-foreground"
           >
             Cancel
           </Button>

@@ -132,3 +132,15 @@ async def list_all_bookings(status: Optional[str] = None, user: dict = Depends(r
         b["customer_name"] = customer["name"] if customer else "Unknown"
         b["provider_name"] = provider["name"] if provider else "Unknown"
     return bookings
+
+
+@router.get("/reviews")
+async def list_all_reviews(user: dict = Depends(require_roles("admin"))):
+    reviews = []
+    async for r in db.reviews.find({}).sort("created_at", -1):
+        r = dict(r)
+        r["id"] = str(r.pop("_id"))
+        svc = await db.services.find_one({"_id": ObjectId(r["service_id"])})
+        r["service_title"] = svc["title"] if svc else "Unknown"
+        reviews.append(r)
+    return reviews

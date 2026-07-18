@@ -53,7 +53,7 @@ export default function ServiceDetail() {
   if (!service) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-        <p className="text-zinc-400">Service not found.</p>
+        <p className="text-muted-foreground">Service not found.</p>
         <Link to="/services" className="mt-3 text-sm text-blue-400">Back to services</Link>
       </div>
     );
@@ -65,19 +65,19 @@ export default function ServiceDetail() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">
-      <button onClick={() => navigate(-1)} className="mb-6 flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-300">
+      <button onClick={() => navigate(-1)} className="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" /> Back
       </button>
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <div data-testid={SERVICE_DETAIL.gallery} className="overflow-hidden rounded-2xl border border-white/10">
+          <div data-testid={SERVICE_DETAIL.gallery} className="overflow-hidden rounded-2xl border border-border">
             <img src={images[activeImage]} alt={service.title} className="h-80 w-full object-cover sm:h-96" />
           </div>
           {images.length > 1 && (
             <div className="mt-3 flex gap-2">
               {images.map((img, i) => (
-                <button key={i} onClick={() => setActiveImage(i)} className={`h-16 w-16 overflow-hidden rounded-lg border ${activeImage === i ? "border-blue-500" : "border-white/10"}`}>
+                <button key={i} onClick={() => setActiveImage(i)} className={`h-16 w-16 overflow-hidden rounded-lg border ${activeImage === i ? "border-blue-500" : "border-border"}`}>
                   <img src={img} alt="" className="h-full w-full object-cover" />
                 </button>
               ))}
@@ -85,58 +85,71 @@ export default function ServiceDetail() {
           )}
 
           <div className="mt-8 flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent px-3 py-1 text-xs text-muted-foreground">
               <CategoryIcon category={service.category} className="h-3.5 w-3.5 text-blue-400" />
               {category?.label}
             </span>
           </div>
-          <h1 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-white">{service.title}</h1>
+          <h1 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-foreground">{service.title}</h1>
           <div className="mt-2 flex items-center gap-4">
             <StarRating rating={service.rating_avg} count={service.rating_count} />
-            <span className="flex items-center gap-1 text-sm text-zinc-500">
+            <span className="flex items-center gap-1 text-sm text-muted-foreground">
               <MapPin className="h-3.5 w-3.5" /> {service.city}
             </span>
           </div>
-          <p className="mt-6 whitespace-pre-line text-sm leading-relaxed text-zinc-400">{service.description}</p>
+          <p className="mt-6 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">{service.description}</p>
 
           <div data-testid={SERVICE_DETAIL.reviewsSection} className="mt-10">
-            <h2 className="font-heading text-xl font-medium text-white">Reviews ({service.reviews?.length || 0})</h2>
+            <h2 className="font-heading text-xl font-medium text-foreground">Reviews ({service.reviews?.length || 0})</h2>
             {service.reviews?.length ? (
               <div className="mt-4 space-y-4">
                 {service.reviews.map((r) => (
-                  <div key={r.id} className="rounded-2xl border border-white/10 bg-[#1C1C22] p-5">
-                    <div className="flex items-center justify-between">
-                      <p className="font-medium text-white">{r.customer_name}</p>
-                      <StarRating rating={r.rating} showValue={false} />
-                    </div>
-                    {r.comment && <p className="mt-2 text-sm text-zinc-500">{r.comment}</p>}
-                    {r.photos?.length > 0 && (
-                      <div className="mt-3 flex gap-2">
-                        {r.photos.map((path, i) => (
-                          <img
-                            key={i}
-                            src={resolveImage({ images: [path] })}
-                            alt="Review attachment"
-                            data-testid={`review-photo-${r.id}-${i}`}
-                            className="h-16 w-16 rounded-lg border border-white/10 object-cover"
-                          />
-                        ))}
+                  <div key={r.id} className="rounded-2xl border border-border bg-card p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-500/15 font-heading text-sm font-medium text-blue-400">
+                        {r.customer_name?.charAt(0)?.toUpperCase()}
                       </div>
-                    )}
+                      <div className="flex-1">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <p className="font-medium text-foreground">{r.customer_name}</p>
+                            <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+                              <ShieldCheck className="h-3 w-3" /> Verified Customer
+                            </span>
+                          </div>
+                          <StarRating rating={r.rating} showValue={false} />
+                        </div>
+                        <p className="mt-0.5 text-xs text-muted-foreground">{new Date(r.created_at).toLocaleDateString()}</p>
+                        {r.comment && <p className="mt-2 text-sm text-muted-foreground">{r.comment}</p>}
+                        {r.photos?.length > 0 && (
+                          <div className="mt-3 flex gap-2">
+                            {r.photos.map((path, i) => (
+                              <img
+                                key={i}
+                                src={resolveImage({ images: [path] })}
+                                alt="Review attachment"
+                                data-testid={`review-photo-${r.id}-${i}`}
+                                className="h-16 w-16 rounded-lg border border-border object-cover"
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="mt-4 text-sm text-zinc-500">No reviews yet. Be the first to book and review this service.</p>
+              <p className="mt-4 text-sm text-muted-foreground">No reviews yet. Be the first to book and review this service.</p>
             )}
           </div>
         </div>
 
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-          <div className="sticky top-24 rounded-2xl border border-white/10 bg-[#12121A] p-6">
+          <div className="sticky top-24 rounded-2xl border border-border bg-card p-6">
             <div className="flex items-baseline justify-between">
-              <span className="font-heading text-3xl font-semibold text-white">${service.price}</span>
-              <span className="text-sm text-zinc-500">{service.price_unit === "hour" ? "per hour" : "fixed price"}</span>
+              <span className="font-heading text-3xl font-semibold text-foreground">${service.price}</span>
+              <span className="text-sm text-muted-foreground">{service.price_unit === "hour" ? "per hour" : "fixed price"}</span>
             </div>
             <Button
               onClick={handleBookNow}
@@ -146,23 +159,23 @@ export default function ServiceDetail() {
               Book Now
             </Button>
 
-            <div className="mt-6 flex items-center gap-3 border-t border-white/10 pt-6">
-              <div className="h-12 w-12 overflow-hidden rounded-full border border-white/10 bg-[#1C1C22]">
+            <div className="mt-6 flex items-center gap-3 border-t border-border pt-6">
+              <div className="h-12 w-12 overflow-hidden rounded-full border border-border bg-muted">
                 {providerAvatar ? (
                   <img src={providerAvatar} alt={service.provider?.name} className="h-full w-full object-cover" />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-zinc-500">{service.provider?.name?.charAt(0)}</div>
+                  <div className="flex h-full w-full items-center justify-center text-muted-foreground">{service.provider?.name?.charAt(0)}</div>
                 )}
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <p className="font-medium text-white">{service.provider?.name}</p>
+                  <p className="font-medium text-foreground">{service.provider?.name}</p>
                   {service.provider?.is_verified && <ShieldCheck className="h-3.5 w-3.5 text-blue-400" />}
                 </div>
                 <StarRating rating={service.provider?.rating_avg} count={service.provider?.rating_count} size={12} />
               </div>
             </div>
-            {service.provider?.bio && <p className="mt-4 text-sm text-zinc-500">{service.provider.bio}</p>}
+            {service.provider?.bio && <p className="mt-4 text-sm text-muted-foreground">{service.provider.bio}</p>}
           </div>
         </motion.div>
       </div>

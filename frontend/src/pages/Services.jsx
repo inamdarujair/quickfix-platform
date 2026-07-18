@@ -57,27 +57,27 @@ export default function Services() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">
       <div className="mb-8">
-        <h1 className="font-heading text-3xl font-semibold tracking-tight text-white">Browse Services</h1>
-        <p className="mt-1 text-sm text-zinc-500">{total} local professionals ready to help.</p>
+        <h1 className="font-heading text-3xl font-semibold tracking-tight text-foreground">Browse Services</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{total} local professionals ready to help.</p>
       </div>
 
-      <div className="mb-8 flex flex-col gap-3 rounded-2xl border border-white/10 bg-[#12121A] p-4 sm:flex-row sm:items-center">
+      <div className="mb-8 flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 sm:flex-row sm:items-center">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             defaultValue={q}
             onKeyDown={(e) => e.key === "Enter" && updateParam("q", e.target.value)}
             onBlur={(e) => updateParam("q", e.target.value)}
             data-testid={SERVICES_PAGE.searchInput}
             placeholder="Search services..."
-            className="border-white/10 bg-transparent pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50"
+            className="border-input bg-transparent pl-9 text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50"
           />
         </div>
         <Select value={category} onValueChange={(v) => updateParam("category", v)}>
-          <SelectTrigger data-testid={SERVICES_PAGE.categoryFilter} className="border-white/10 bg-transparent text-white sm:w-48">
+          <SelectTrigger data-testid={SERVICES_PAGE.categoryFilter} className="border-input bg-transparent text-foreground sm:w-48">
             <SelectValue placeholder="Category" />
           </SelectTrigger>
-          <SelectContent className="border-white/10 bg-[#1C1C22] text-white">
+          <SelectContent className="border-border bg-popover text-popover-foreground">
             <SelectItem value="all">All categories</SelectItem>
             {CATEGORIES.map((c) => (
               <SelectItem key={c.key} value={c.key}>{c.label}</SelectItem>
@@ -90,14 +90,14 @@ export default function Services() {
           onBlur={(e) => updateParam("city", e.target.value)}
           data-testid={SERVICES_PAGE.cityInput}
           placeholder="City"
-          className="border-white/10 bg-transparent text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50 sm:w-36"
+          className="border-input bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50 sm:w-36"
         />
         <Select value={sort} onValueChange={(v) => updateParam("sort", v)}>
-          <SelectTrigger data-testid={SERVICES_PAGE.sortSelect} className="border-white/10 bg-transparent text-white sm:w-44">
-            <SlidersHorizontal className="mr-2 h-3.5 w-3.5 text-zinc-500" />
+          <SelectTrigger data-testid={SERVICES_PAGE.sortSelect} className="border-input bg-transparent text-foreground sm:w-44">
+            <SlidersHorizontal className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
             <SelectValue placeholder="Sort" />
           </SelectTrigger>
-          <SelectContent className="border-white/10 bg-[#1C1C22] text-white">
+          <SelectContent className="border-border bg-popover text-popover-foreground">
             <SelectItem value="newest">Newest</SelectItem>
             <SelectItem value="price_asc">Price: Low to High</SelectItem>
             <SelectItem value="price_desc">Price: High to Low</SelectItem>
@@ -126,7 +126,7 @@ export default function Services() {
                 disabled={loading}
                 onClick={() => fetchServices(page + 1)}
                 data-testid={SERVICES_PAGE.loadMoreButton}
-                className="border-white/10 bg-transparent text-zinc-200 hover:bg-white/5"
+                className="border-border bg-transparent text-foreground hover:bg-accent"
               >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Load more

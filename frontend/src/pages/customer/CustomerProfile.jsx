@@ -40,20 +40,20 @@ export const CustomerProfile = () => {
       <AvatarUploader user={user} onUpdated={updateUser} />
 
       <div>
-        <Label className="text-xs text-zinc-400">Full Name</Label>
-        <Input value={form.name} onChange={update("name")} data-testid={PROFILE_FORM.nameInput} className="mt-1.5 border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+        <Label className="text-xs text-muted-foreground">Full Name</Label>
+        <Input value={form.name} onChange={update("name")} data-testid={PROFILE_FORM.nameInput} className="mt-1.5 border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
       </div>
       <div>
-        <Label className="text-xs text-zinc-400">Phone</Label>
-        <Input value={form.phone} onChange={update("phone")} data-testid={PROFILE_FORM.phoneInput} className="mt-1.5 border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+        <Label className="text-xs text-muted-foreground">Phone</Label>
+        <Input value={form.phone} onChange={update("phone")} data-testid={PROFILE_FORM.phoneInput} className="mt-1.5 border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
       </div>
       <div>
-        <Label className="text-xs text-zinc-400">City</Label>
-        <Input value={form.city} onChange={update("city")} data-testid={PROFILE_FORM.cityInput} className="mt-1.5 border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+        <Label className="text-xs text-muted-foreground">City</Label>
+        <Input value={form.city} onChange={update("city")} data-testid={PROFILE_FORM.cityInput} className="mt-1.5 border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
       </div>
       <div>
-        <Label className="text-xs text-zinc-400">Address</Label>
-        <Textarea value={form.address} onChange={update("address")} data-testid={PROFILE_FORM.addressInput} className="mt-1.5 border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+        <Label className="text-xs text-muted-foreground">Address</Label>
+        <Textarea value={form.address} onChange={update("address")} data-testid={PROFILE_FORM.addressInput} className="mt-1.5 border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
       </div>
       <Button onClick={handleSave} disabled={loading} data-testid={PROFILE_FORM.saveButton} className="bg-blue-500 text-white hover:bg-blue-400">
         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

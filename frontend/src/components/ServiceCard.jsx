@@ -21,7 +21,7 @@ export const ServiceCard = ({ service, index = 0 }) => {
         to={`/services/${service.id}`}
         state={{ from: location.pathname + location.search }}
         data-testid={SERVICE_CARD.link(service.id)}
-        className="group block overflow-hidden rounded-2xl border border-white/10 bg-[#1C1C22] transition-transform duration-300 hover:-translate-y-1 hover:border-white/20"
+        className="group block overflow-hidden rounded-2xl border border-border bg-card transition-transform duration-300 hover:-translate-y-1 hover:border-foreground/20"
       >
         <div data-testid={SERVICE_CARD.container(service.id)} className="relative h-44 w-full overflow-hidden">
           {image && (
@@ -38,18 +38,18 @@ export const ServiceCard = ({ service, index = 0 }) => {
           </div>
         </div>
         <div className="p-5">
-          <h3 className="font-heading text-lg font-medium leading-tight text-white line-clamp-1">{service.title}</h3>
-          <p className="mt-1 text-sm text-zinc-500 line-clamp-2">{service.description}</p>
+          <h3 className="font-heading text-lg font-medium leading-tight text-foreground line-clamp-1">{service.title}</h3>
+          <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{service.description}</p>
           <div className="mt-4 flex items-center justify-between">
             <StarRating rating={service.rating_avg} count={service.rating_count} />
-            <span className="font-heading text-base font-semibold text-white">
+            <span className="font-heading text-base font-semibold text-foreground">
               ${service.price}
-              <span className="text-xs font-normal text-zinc-500">{service.price_unit === "hour" ? "/hr" : ""}</span>
+              <span className="text-xs font-normal text-muted-foreground">{service.price_unit === "hour" ? "/hr" : ""}</span>
             </span>
           </div>
-          <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-3">
-            <span className="text-xs text-zinc-500">{service.provider?.name}</span>
-            <span className="text-xs text-zinc-500">{service.city}</span>
+          <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
+            <span className="text-xs text-muted-foreground">{service.provider?.name}</span>
+            <span className="text-xs text-muted-foreground">{service.city}</span>
           </div>
         </div>
       </Link>

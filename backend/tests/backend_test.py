@@ -372,6 +372,97 @@ def test_admin_bookings_list(admin_session):
     assert isinstance(r.json(), list)
 
 
+# ---------------- Admin Reviews (delete + rating recalc) ---------------- #
+
+@pytest.fixture(scope="session")
+def review_service_and_booking(customer_session, provider_session):
+    """Create a fresh service + completed booking + review dedicated to review-delete tests."""
+    from datetime import date, timedelta
+    payload = {
+        "title": "TEST_ReviewSvc_" + uuid.uuid4().hex[:6],
+        "description": "Test service for review deletion tests",
+        "category": "plumbing",
+        "price": 50,
+        "price_unit": "fixed",
+        "city": "Austin",
+    }
+    svc = provider_session.post(f"{API}/services", json=payload).json()
+    booking = customer_session.post(f"{API}/bookings", json={
+        "service_id": svc["id"],
+        "scheduled_date": (date.today() + timedelta(days=3)).isoformat(),
+        "scheduled_time": "09:00",
+        "address": "review test address",
+    }).json()
+    provider_session.put(f"{API}/provider/bookings/{booking['id']}/status", json={"status": "confirmed"})
+    provider_session.put(f"{API}/provider/bookings/{booking['id']}/status", json={"status": "completed"})
+    review = customer_session.post(f"{API}/reviews", json={
+        "booking_id": booking["id"], "rating": 3, "comment": "TEST review for deletion"
+    }).json()
+    return {"service": svc, "booking": booking, "review": review}
+
+
+def test_admin_reviews_list(admin_session, review_service_and_booking):
+    r = admin_session.get(f"{API}/admin/reviews")
+    assert r.status_code == 200
+    reviews = r.json()
+    assert isinstance(reviews, list)
+    ids = [rv["id"] for rv in reviews]
+    assert review_service_and_booking["review"]["id"] in ids
+    match = next(rv for rv in reviews if rv["id"] == review_service_and_booking["review"]["id"])
+    assert match["service_title"] == review_service_and_booking["service"]["title"]
+    assert "_id" not in match
+
+
+def test_admin_reviews_list_non_admin_forbidden(customer_session):
+    r = customer_session.get(f"{API}/admin/reviews")
+    assert r.status_code == 403
+
+
+def test_delete_review_non_admin_forbidden(customer_session, review_service_and_booking):
+    review_id = review_service_and_booking["review"]["id"]
+    r = customer_session.delete(f"{API}/reviews/{review_id}")
+    assert r.status_code == 403
+
+
+def test_delete_review_provider_forbidden(provider_session, review_service_and_booking):
+    review_id = review_service_and_booking["review"]["id"]
+    r = provider_session.delete(f"{API}/reviews/{review_id}")
+    assert r.status_code == 403
+
+
+def test_delete_review_admin_recalculates_rating(admin_session, review_service_and_booking):
+    review_id = review_service_and_booking["review"]["id"]
+    service_id = review_service_and_booking["service"]["id"]
+
+    # sanity: rating currently reflects the single review (3.0/1)
+    before = requests.get(f"{API}/services/{service_id}").json()
+    assert before["rating_count"] == 1
+    assert before["rating_avg"] == 3.0
+
+    r = admin_session.delete(f"{API}/reviews/{review_id}")
+    assert r.status_code == 200
+    assert "message" in r.json()
+
+    after = requests.get(f"{API}/services/{service_id}").json()
+    assert after["rating_count"] == 0
+    assert after["rating_avg"] == 0
+
+    # review should no longer show for the service
+    remaining = requests.get(f"{API}/reviews/service/{service_id}").json()
+    assert review_id not in [rv["id"] for rv in remaining]
+
+
+def test_delete_review_404_after_deletion(admin_session, review_service_and_booking):
+    review_id = review_service_and_booking["review"]["id"]
+    r = admin_session.delete(f"{API}/reviews/{review_id}")
+    assert r.status_code == 404
+
+
+def test_delete_review_unauth(review_service_and_booking):
+    r = requests.delete(f"{API}/reviews/{review_service_and_booking['review']['id']}")
+    assert r.status_code == 401
+
+
 # ---------------- Delete service (cleanup) ---------------- #
 
 def test_delete_service_soft(provider_session, created_service):

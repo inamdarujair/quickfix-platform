@@ -4,6 +4,7 @@ export const ADMIN_DASHBOARD = {
         usersTab: 'admin-dashboard-users-tab',
         servicesTab: 'admin-dashboard-services-tab',
         bookingsTab: 'admin-dashboard-bookings-tab',
+        reviewsTab: 'admin-dashboard-reviews-tab',
         userSearchInput: 'admin-user-search-input',
         roleFilter: 'admin-role-filter',
 };
@@ -17,4 +18,8 @@ export const ADMIN_USER_ROW = {
 export const ADMIN_SERVICE_ROW = {
         toggleButton: (id) => `admin-service-toggle-button-${id}`,
         deleteButton: (id) => `admin-service-delete-button-${id}`,
+};
+
+export const ADMIN_REVIEW_ROW = {
+        deleteButton: (id) => `admin-review-delete-button-${id}`,
 };

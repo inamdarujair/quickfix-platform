@@ -58,7 +58,7 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-white/10 bg-[#12121A] text-white sm:max-w-sm">
+      <DialogContent className="border-border bg-card text-foreground sm:max-w-sm">
         <DialogHeader>
           <DialogTitle className="font-heading">Rate {booking?.service_title}</DialogTitle>
         </DialogHeader>
@@ -77,7 +77,7 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
                 size={28}
                 className={cn(
                   "transition-colors",
-                  n <= (hovered || rating) ? "fill-amber-400 text-amber-400" : "fill-transparent text-zinc-600"
+                  n <= (hovered || rating) ? "fill-amber-400 text-amber-400" : "fill-transparent text-muted-foreground/40"
                 )}
               />
             </button>
@@ -89,13 +89,13 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
           onChange={(e) => setComment(e.target.value)}
           data-testid={REVIEW_MODAL.commentInput}
           placeholder="Share your experience with this provider"
-          className="min-h-[90px] border-white/10 bg-transparent text-white placeholder:text-zinc-600 focus-visible:ring-blue-500/50"
+          className="min-h-[90px] border-input bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-blue-500/50"
         />
 
         <div>
           <div className="flex flex-wrap gap-2">
             {photos.map((file, i) => (
-              <div key={i} className="relative h-14 w-14 overflow-hidden rounded-lg border border-white/10">
+              <div key={i} className="relative h-14 w-14 overflow-hidden rounded-lg border border-border">
                 <img src={URL.createObjectURL(file)} alt="" className="h-full w-full object-cover" />
                 <button
                   type="button"
@@ -108,7 +108,7 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
               </div>
             ))}
             {photos.length < MAX_PHOTOS && (
-              <label className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-lg border border-dashed border-white/15 text-zinc-500 hover:bg-white/5">
+              <label className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-lg border border-dashed border-border text-muted-foreground hover:bg-accent">
                 <ImagePlus className="h-4 w-4" />
                 <input
                   type="file"
@@ -121,7 +121,7 @@ export const ReviewModal = ({ booking, open, onOpenChange, onReviewed }) => {
               </label>
             )}
           </div>
-          <p className="mt-1.5 text-xs text-zinc-600">Add up to {MAX_PHOTOS} photos (optional)</p>
+          <p className="mt-1.5 text-xs text-muted-foreground">Add up to {MAX_PHOTOS} photos (optional)</p>
         </div>
 
         <DialogFooter>

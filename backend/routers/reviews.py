@@ -99,3 +99,17 @@ async def upload_review_photos(review_id: str, files: list[UploadFile] = File(..
 async def get_service_reviews(service_id: str):
     reviews = [review_to_public(r) async for r in db.reviews.find({"service_id": service_id}).sort("created_at", -1)]
     return reviews
+
+
+@router.delete("/{review_id}")
+async def delete_review(review_id: str, user: dict = Depends(require_roles("admin"))):
+    try:
+        review = await db.reviews.find_one({"_id": ObjectId(review_id)})
+    except Exception:
+        raise HTTPException(status_code=404, detail="Review not found")
+    if not review:
+        raise HTTPException(status_code=404, detail="Review not found")
+    await db.reviews.delete_one({"_id": ObjectId(review_id)})
+    await recalculate_rating("services", "service_id", review["service_id"])
+    await recalculate_rating("users", "provider_id", review["provider_id"])
+    return {"message": "Review deleted"}

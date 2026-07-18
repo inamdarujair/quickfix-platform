@@ -27,16 +27,16 @@ export const AdminOverview = () => {
         <StatCard testId="admin-stat-revenue" icon={DollarSign} label="Total Revenue" value={`$${stats.revenue}`} accent="text-blue-400" delay={0.15} />
       </div>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-[#12121A] p-6">
+      <div className="mt-6 rounded-2xl border border-border bg-card p-6">
         <div className="flex items-center gap-2">
           <CalendarCheck className="h-4 w-4 text-blue-400" />
-          <h3 className="font-heading text-base font-medium text-white">Bookings by status</h3>
+          <h3 className="font-heading text-base font-medium text-foreground">Bookings by status</h3>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
           {Object.entries(stats.bookings_by_status).map(([key, value]) => (
-            <div key={key} className="rounded-xl border border-white/5 bg-white/[0.02] p-4 text-center">
-              <p className="font-heading text-2xl font-semibold text-white">{value}</p>
-              <p className="mt-1 text-xs capitalize text-zinc-500">{key}</p>
+            <div key={key} className="rounded-xl border border-border bg-muted/30 p-4 text-center">
+              <p className="font-heading text-2xl font-semibold text-foreground">{value}</p>
+              <p className="mt-1 text-xs capitalize text-muted-foreground">{key}</p>
             </div>
           ))}
         </div>

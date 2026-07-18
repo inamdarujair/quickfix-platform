@@ -62,7 +62,7 @@ export const ProviderServices = () => {
             const category = getCategory(svc.category);
             const image = resolveImage(svc);
             return (
-              <div key={svc.id} className="overflow-hidden rounded-2xl border border-white/10 bg-[#1C1C22]">
+              <div key={svc.id} className="overflow-hidden rounded-2xl border border-border bg-card">
                 <div className="relative h-32 w-full">
                   {image && <img src={image} alt={svc.title} className="h-full w-full object-cover" />}
                   {!svc.is_active && (
@@ -70,11 +70,11 @@ export const ProviderServices = () => {
                   )}
                 </div>
                 <div className="p-4">
-                  <p className="text-xs text-zinc-500">{category?.label}</p>
-                  <h3 className="mt-1 font-heading text-base font-medium text-white line-clamp-1">{svc.title}</h3>
+                  <p className="text-xs text-muted-foreground">{category?.label}</p>
+                  <h3 className="mt-1 font-heading text-base font-medium text-foreground line-clamp-1">{svc.title}</h3>
                   <div className="mt-2 flex items-center justify-between">
                     <StarRating rating={svc.rating_avg} count={svc.rating_count} size={12} />
-                    <span className="text-sm font-medium text-white">${svc.price}</span>
+                    <span className="text-sm font-medium text-foreground">${svc.price}</span>
                   </div>
                   <div className="mt-4 flex gap-2">
                     <Button
@@ -85,7 +85,7 @@ export const ProviderServices = () => {
                         setModalOpen(true);
                       }}
                       data-testid={PROVIDER_SERVICE_ROW.editButton(svc.id)}
-                      className="flex-1 border-white/10 bg-transparent text-zinc-200 hover:bg-white/5"
+                      className="flex-1 border-border bg-transparent text-foreground hover:bg-accent"
                     >
                       <Pencil className="mr-1.5 h-3.5 w-3.5" /> Edit
                     </Button>
@@ -94,7 +94,7 @@ export const ProviderServices = () => {
                       variant="outline"
                       onClick={() => handleDelete(svc.id)}
                       data-testid={PROVIDER_SERVICE_ROW.deleteButton(svc.id)}
-                      className="border-white/10 bg-transparent text-red-400 hover:bg-red-500/10"
+                      className="border-border bg-transparent text-red-400 hover:bg-red-500/10"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </Button>

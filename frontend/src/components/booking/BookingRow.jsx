@@ -25,14 +25,14 @@ export const BookingRow = ({ booking, onChanged }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#1C1C22] p-5 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <div className="flex items-center gap-2">
-          <h3 className="font-heading text-base font-medium text-white">{booking.service_title}</h3>
+          <h3 className="font-heading text-base font-medium text-foreground">{booking.service_title}</h3>
           <StatusBadge status={booking.status} testId={BOOKING_ROW.statusBadge(booking.id)} />
         </div>
-        <p className="mt-1 text-sm text-zinc-500">with {booking.provider_name}</p>
-        <div className="mt-2 flex flex-wrap items-center gap-4 text-xs text-zinc-500">
+        <p className="mt-1 text-sm text-muted-foreground">with {booking.provider_name}</p>
+        <div className="mt-2 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <Calendar className="h-3.5 w-3.5" />
             {booking.scheduled_date} · {booking.scheduled_time}
@@ -41,7 +41,7 @@ export const BookingRow = ({ booking, onChanged }) => {
             <MapPin className="h-3.5 w-3.5" />
             {booking.address}
           </span>
-          <span className="font-medium text-zinc-300">${booking.price}</span>
+          <span className="font-medium text-foreground/80">${booking.price}</span>
         </div>
       </div>
       <div className="flex gap-2">
@@ -52,7 +52,7 @@ export const BookingRow = ({ booking, onChanged }) => {
             disabled={cancelling}
             onClick={handleCancel}
             data-testid={BOOKING_ROW.cancelButton(booking.id)}
-            className="border-white/10 bg-transparent text-zinc-300 hover:bg-white/5"
+            className="border-border bg-transparent text-muted-foreground hover:bg-accent"
           >
             {cancelling && <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />}
             Cancel
@@ -69,7 +69,7 @@ export const BookingRow = ({ booking, onChanged }) => {
           </Button>
         )}
         {booking.status === "completed" && booking.has_review && (
-          <span className="text-xs text-zinc-500">Reviewed</span>
+          <span className="text-xs text-muted-foreground">Reviewed</span>
         )}
       </div>
       <ReviewModal booking={booking} open={reviewOpen} onOpenChange={setReviewOpen} onReviewed={onChanged} />

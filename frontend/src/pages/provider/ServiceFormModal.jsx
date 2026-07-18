@@ -56,27 +56,27 @@ export const ServiceFormModal = ({ service, open, onOpenChange, onSaved }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto border-white/10 bg-[#12121A] text-white sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] overflow-y-auto border-border bg-card text-foreground sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="font-heading">{service?.id ? "Edit Service" : "Add New Service"}</DialogTitle>
         </DialogHeader>
 
         <div>
-          <Label className="text-xs text-zinc-400">Title</Label>
-          <Input value={form.title} onChange={update("title")} data-testid={SERVICE_FORM.titleInput} className="mt-1.5 border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+          <Label className="text-xs text-muted-foreground">Title</Label>
+          <Input value={form.title} onChange={update("title")} data-testid={SERVICE_FORM.titleInput} className="mt-1.5 border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
         </div>
         <div>
-          <Label className="text-xs text-zinc-400">Description</Label>
-          <Textarea value={form.description} onChange={update("description")} data-testid={SERVICE_FORM.descriptionInput} className="mt-1.5 min-h-[90px] border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+          <Label className="text-xs text-muted-foreground">Description</Label>
+          <Textarea value={form.description} onChange={update("description")} data-testid={SERVICE_FORM.descriptionInput} className="mt-1.5 min-h-[90px] border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="text-xs text-zinc-400">Category</Label>
+            <Label className="text-xs text-muted-foreground">Category</Label>
             <Select value={form.category} onValueChange={(v) => setForm((f) => ({ ...f, category: v }))}>
-              <SelectTrigger data-testid={SERVICE_FORM.categorySelect} className="mt-1.5 border-white/10 bg-transparent text-white">
+              <SelectTrigger data-testid={SERVICE_FORM.categorySelect} className="mt-1.5 border-input bg-transparent text-foreground">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="border-white/10 bg-[#1C1C22] text-white">
+              <SelectContent className="border-border bg-popover text-popover-foreground">
                 {CATEGORIES.map((c) => (
                   <SelectItem key={c.key} value={c.key}>{c.label}</SelectItem>
                 ))}
@@ -84,22 +84,22 @@ export const ServiceFormModal = ({ service, open, onOpenChange, onSaved }) => {
             </Select>
           </div>
           <div>
-            <Label className="text-xs text-zinc-400">City</Label>
-            <Input value={form.city} onChange={update("city")} data-testid={SERVICE_FORM.cityInput} className="mt-1.5 border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+            <Label className="text-xs text-muted-foreground">City</Label>
+            <Input value={form.city} onChange={update("city")} data-testid={SERVICE_FORM.cityInput} className="mt-1.5 border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="text-xs text-zinc-400">Price ($)</Label>
-            <Input type="number" min="1" value={form.price} onChange={update("price")} data-testid={SERVICE_FORM.priceInput} className="mt-1.5 border-white/10 bg-transparent text-white focus-visible:ring-blue-500/50" />
+            <Label className="text-xs text-muted-foreground">Price ($)</Label>
+            <Input type="number" min="1" value={form.price} onChange={update("price")} data-testid={SERVICE_FORM.priceInput} className="mt-1.5 border-input bg-transparent text-foreground focus-visible:ring-blue-500/50" />
           </div>
           <div>
-            <Label className="text-xs text-zinc-400">Price Unit</Label>
+            <Label className="text-xs text-muted-foreground">Price Unit</Label>
             <Select value={form.price_unit} onValueChange={(v) => setForm((f) => ({ ...f, price_unit: v }))}>
-              <SelectTrigger data-testid={SERVICE_FORM.priceUnitSelect} className="mt-1.5 border-white/10 bg-transparent text-white">
+              <SelectTrigger data-testid={SERVICE_FORM.priceUnitSelect} className="mt-1.5 border-input bg-transparent text-foreground">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="border-white/10 bg-[#1C1C22] text-white">
+              <SelectContent className="border-border bg-popover text-popover-foreground">
                 <SelectItem value="fixed">Fixed price</SelectItem>
                 <SelectItem value="hour">Per hour</SelectItem>
               </SelectContent>
@@ -107,8 +107,8 @@ export const ServiceFormModal = ({ service, open, onOpenChange, onSaved }) => {
           </div>
         </div>
         <div>
-          <Label className="text-xs text-zinc-400">Images (up to 5)</Label>
-          <label className="mt-1.5 flex cursor-pointer items-center gap-2 rounded-md border border-dashed border-white/10 px-3 py-3 text-sm text-zinc-400 hover:bg-white/5">
+          <Label className="text-xs text-muted-foreground">Images (up to 5)</Label>
+          <label className="mt-1.5 flex cursor-pointer items-center gap-2 rounded-md border border-dashed border-border px-3 py-3 text-sm text-muted-foreground hover:bg-accent">
             <Upload className="h-4 w-4" />
             {images?.length ? `${images.length} file(s) selected` : "Click to upload images"}
             <input type="file" accept="image/png,image/jpeg,image/webp" multiple data-testid={SERVICE_FORM.imagesInput} className="hidden" onChange={(e) => setImages(e.target.files)} />
