@@ -24,6 +24,8 @@ export const REGISTER = {
 	emailInput: 'register-email-input',
 	passwordInput: 'register-password-input',
 	passwordConfirmInput: 'register-password-confirm-input',
+	roleSelect: 'register-role-select',
+	phoneInput: 'register-phone-input',
 	submitButton: 'register-submit-button',
 	loginLink: 'register-login-link',
 };

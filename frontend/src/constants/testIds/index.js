@@ -13,3 +13,9 @@
 
 export * from './auth';
 export * from './home';
+export * from './services';
+export * from './booking';
+export * from './dashboard';
+export * from './provider';
+export * from './admin';
+export * from './navbar';
